@@ -1,0 +1,32 @@
+name: Continuous Integration
+
+on:
+  pull_request:
+  push:
+    branches:
+      - "[0-9]+.x"
+
+jobs:
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-versions:
+          - "7.4"
+          - "8.0"
+          - "8.1"
+        dependency-versions:
+          - lowest
+          - highest
+          - locked
+    steps:
+      - uses: actions/checkout@v2
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "${{ matrix.php-versions }}"
+      - uses: ramsey/composer-install@v1
+        with:
+          dependency-versions: "${{ matrix.dependency-versions }}"
+      - name: PHPUnit
+        run: vendor/bin/phpunit
