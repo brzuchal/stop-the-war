@@ -10,10 +10,12 @@ class BeforeTypeDeclarationSniffTest extends TestCase
     {
         $report = self::checkFile(__DIR__ . '/data/BeforeTypeDeclarationMissingStopWarComment.php');
 
-        self::assertSame(1, $report->getErrorCount());
+        self::assertEquals(10, $report->getErrorCount());
+        self::assertEquals(10, $report->getFixableCount());
         self::assertSniffError($report, 3, BeforeTypeDeclarationSniff::CODE_MISSING_COMMENT);
 
         self::assertAllFixedInFile($report);
+        self::assertEquals(20, $report->getFixedCount());
     }
 
     public function testExtendedStopWarCommentMissing(): void
@@ -22,20 +24,11 @@ class BeforeTypeDeclarationSniffTest extends TestCase
             'commentExtension' => '🇺🇦 #StandWithUkraine #StopPutin',
         ]);
 
-        self::assertSame(1, $report->getErrorCount());
+        self::assertEquals(10, $report->getErrorCount());
+        self::assertEquals(10, $report->getFixableCount());
         self::assertSniffError($report, 3, BeforeTypeDeclarationSniff::CODE_MISSING_EXTENDED_COMMENT);
 
         self::assertAllFixedInFile($report);
+        self::assertEquals(20, $report->getFixedCount());
     }
-
-//    public function testModifiedSettingsNoErrors(): void
-//    {
-//        $report = self::checkFile(__DIR__ . '/data/docCommentSpacingModifiedSettingsNoErrors.php', [
-//            'linesCountBeforeFirstContent' => 1,
-//            'linesCountBetweenDescriptionAndAnnotations' => 0,
-//            'linesCountBetweenDifferentAnnotationsTypes' => 1,
-//            'linesCountAfterLastContent' => 1,
-//        ]);
-//        self::assertNoSniffErrorInFile($report);
-//    }
 }

@@ -23,22 +23,25 @@ final class BeforeTypeDeclarationSniff implements Sniff
     {
         $tokens = $phpcsFile->getTokens();
         $token = $tokens[$stackPtr];
-        $noOfSpaces = 0;
+        $blankLinesCount = 0;
         $fix = false;
         $commentString = \trim(self::INITIAL_TEXT . ' ' . $this->commentExtension);
         while ($stackPtr > 0) {
             if ($token['code'] === \T_WHITESPACE) {
-                $noOfSpaces++;
+                $blankLinesCount++;
             }
 
-            if ($noOfSpaces === 2) {
+            if ($blankLinesCount === 2) {
                 $fix = $this->addError($phpcsFile, $stackPtr);
                 break;
             }
 
             if ($token['code'] === \T_COMMENT && $commentString === \trim($token['content'])) {
-                print("\e[0;32mContent match!\e[0m\n");
                 break;
+            }
+
+            if ($token['code'] !== \T_WHITESPACE) {
+                $blankLinesCount = \min($blankLinesCount--, 0);
             }
 
             $token = $tokens[--$stackPtr];
