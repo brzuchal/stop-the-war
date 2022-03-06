@@ -36,7 +36,7 @@ Basic usage just adds general `#StopTheWar` comment, a minimum setup requirement
 Results in adding stop war comment with no additional text, as follows:
 
 ```php
-// #StopWar 
+// Do not be silent! #StopWar 
 class MyService
 {
 }
@@ -60,7 +60,7 @@ However, if you'd like to promote any kind of extended comment define rule prope
 Results in adding comment in front of every class, interface, trait, enum as follows:
 
 ```php
-// #StopWar 🇺🇦 #StandWithUkraine #StopPutin
+// Do not be silent! #StopWar 🇺🇦 #StandWithUkraine #StopPutin
 class MyService
 {
 }
