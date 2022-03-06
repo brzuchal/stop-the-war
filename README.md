@@ -1,6 +1,6 @@
 # StopTheWar
 
-![Tests](https://github.com/brzuchal/stop-the-war/actions/workflows/php.yml/badge.svg)
+![Tests](https://github.com/brzuchal/stop-the-war/actions/workflows/continous-integration.yml/badge.svg)
 
 ---
 
